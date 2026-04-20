@@ -27,14 +27,14 @@
 
 真正做到：贴一个链接，自动把视频变成“可读、可存、可复用”的内容资产。
 
-## What It Does
+## 它能做什么
 
-Input:
+输入支持两种形式：
 
-- a Douyin share link
-- or a full share text copied from Douyin
+- 一条抖音分享链接
+- 一整段从抖音复制出来的分享文案
 
-Output:
+输出文件包括：
 
 - `VIDEO_ID.mp4`
 - `VIDEO_ID.wav`
@@ -43,7 +43,7 @@ Output:
 - `VIDEO_ID.metadata.json`
 - `YYYY-MM-DD-douyin-<slug>-<video_id>.draft.md`
 
-## Workflow
+## 工作流程
 
 ```mermaid
 flowchart LR
@@ -57,101 +57,101 @@ flowchart LR
     G --> H
 ```
 
-## Install As A Skill
+## 安装为 Skill
 
-If your environment supports the `skills` installer:
+如果你的环境支持 `skills` 安装器，可以直接执行：
 
 ```bash
 npx skills add <owner>/<repo> --global
 ```
 
-Or install manually by placing the repository in your global skills directory.
+也可以手动安装：把仓库内容放进你自己的全局 skills 目录。
 
-For Codex on Windows, the global skill directory is typically:
+以 Windows 上的 Codex 为例，全局 skill 目录通常类似这样：
 
 ```text
 C:\Users\<you>\.codex\skills\
 ```
 
-## Local Requirements
+## 本地运行要求
 
 - Windows with PowerShell
 - Python 3.10+
 - `ffmpeg` available on `PATH`
 - internet access for downloading Douyin pages and whisper.cpp model files
 
-The script uses `ffmpeg`'s built-in `whisper` filter with local `ggml` models downloaded from `hf-mirror.com`.
+脚本会使用 `ffmpeg` 内置的 `whisper` 滤镜，并从 `hf-mirror.com` 下载本地 `ggml` 模型文件。
 
-## Configuration
+## 配置说明
 
-Default output directory:
+默认输出目录：
 
 ```text
 %USERPROFILE%\douyin-video-docs
 ```
 
-Override with environment variable:
+你也可以通过环境变量覆盖：
 
 ```powershell
 $env:DOUYIN_VIDEO_TO_DOC_OUTPUT_DIR = "D:\dolan_env\temp\project\personal\douyin-video-docs"
 ```
 
-You can also override per run:
+也可以在单次运行时直接指定输出目录：
 
 ```powershell
-python .\scripts\douyin_video_to_doc.py --input "https://v.douyin.com/xxxx/" --output-dir "D:\custom\path"
+python .\scripts\douyin_video_to_doc.py --input "这里填写抖音分享链接或完整分享文案" --output-dir "D:\custom\path"
 ```
 
-## Usage
+## 使用方式
 
-From the repository root:
+在仓库根目录下运行：
 
 ```powershell
-python .\scripts\douyin_video_to_doc.py --input "https://v.douyin.com/j6ySf9z4GKg/"
+python .\scripts\douyin_video_to_doc.py --input "这里填写抖音分享链接"
 ```
 
-Using full copied share text:
+如果你拿到的是一整段抖音分享文案，也可以直接这样传入：
 
 ```powershell
-python .\scripts\douyin_video_to_doc.py --input "7.99 复制打开抖音，看看【每日AI评论的作品】简单讲讲最近最火的Hermes Agent #ai #技术分享 #Agent https://v.douyin.com/j6ySf9z4GKg/"
+python .\scripts\douyin_video_to_doc.py --input "这里填写从抖音复制出来的完整分享文案"
 ```
 
-Choosing a model explicitly:
+如果你想显式指定转写模型：
 
 ```powershell
-python .\scripts\douyin_video_to_doc.py --input "https://v.douyin.com/j6ySf9z4GKg/" --model small
+python .\scripts\douyin_video_to_doc.py --input "这里填写抖音分享链接" --model small
 ```
 
-Current model choices:
+当前可选模型：
 
 - `base`
 - `small`
 
-Use `small` when quality matters more than speed.
+如果你更看重转写质量而不是速度，优先使用 `small`。
 
-## How To Turn Drafts Into Final Docs
+## 如何把草稿整理成最终文档
 
-The script generates a draft Markdown file with:
+脚本会先生成一份 Markdown 草稿，其中包含：
 
-- basic video info
-- processing note
-- transcript raw text
-- placeholders for detailed writeup
+- 视频基础信息
+- 处理说明
+- 字幕原文
+- 详细解读的占位结构
 
-Recommended next step:
+推荐的后续整理步骤：
 
-1. Read the transcript text.
-2. Correct obvious ASR mistakes from context.
-3. Expand the draft into:
-   - core argument
-   - detailed mechanism
-   - examples
-   - caveats
-   - reusable conclusions
+1. 先通读字幕文本。
+2. 根据上下文修正明显的 ASR 识别错误。
+3. 再把草稿扩展成完整整理稿，至少补齐：
+   - 核心观点
+   - 详细机制
+   - 举例说明
+   - 局限与注意点
+   - 可复用结论
 
-## Notes And Limits
+## 注意事项与限制
 
-- Douyin pages often do not expose reusable official subtitles.
-- In those cases the transcript is local ASR output, not official captions.
-- Proper nouns may require manual correction from context.
-- Some Douyin links may expire or redirect differently depending on region and platform behavior.
+- 抖音页面通常不会直接暴露可复用的官方字幕。
+- 在这种情况下，字幕文本来自本地 ASR 转写，并不是平台官方字幕。
+- 专有名词、人名、产品名有时需要结合上下文人工修正。
+- 部分抖音链接可能会因为地区、时间或平台策略变化而失效或重定向异常。
