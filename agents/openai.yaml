@@ -1,0 +1,3 @@
+display_name: Douyin Video To Doc
+short_description: Converts a Douyin link into transcript files and a detailed one-video-one-doc workflow
+default_prompt: Turn this Douyin video into a full document bundle with transcript and a detailed writeup.
