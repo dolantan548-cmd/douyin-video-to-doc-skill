@@ -1,14 +1,31 @@
-# Douyin Video To Doc
+# 抖音视频一键整理智能体技能
 
-Convert a Douyin share link into a reusable document bundle:
+还在为冗长的抖音视频浪费时间？还在到处找无水印下载工具？这个智能体技能就是为这件事准备的。
 
-- downloaded video
-- extracted audio
-- local transcript
-- metadata JSON
-- one Markdown draft per video
+你只需要粘贴一条抖音链接，系统就会自动完成一整套流程：
 
-This repository is designed as an agent skill and can also be used directly as a local workflow.
+- 解析抖音分享链接
+- 下载无水印高清视频
+- 提取音频并生成字幕文本
+- 输出视频元数据
+- 生成一份可继续深加工的 Markdown 文档草稿
+
+它不是简单的“下载器”，而是一套面向信息处理的自动化工作流。你不需要再反复拖动进度条、逐段听内容、手动记笔记，而是可以更快拿到一条视频的核心信息、字幕原文和后续可复用素材。
+
+适合这些场景：
+
+- 学习长视频内容，不想从头看到尾
+- 批量整理抖音里的知识型、资讯型、技术型内容
+- 把抖音视频转成研究资料、学习笔记、选题素材
+- 下载纯净视频素材，用于二次整理或创作流程
+
+全面支持接入主流智能体工作流，例如：
+
+- Codex
+- Claude Code
+- OpenClaw
+
+真正做到：贴一个链接，自动把视频变成“可读、可存、可复用”的内容资产。
 
 ## What It Does
 
